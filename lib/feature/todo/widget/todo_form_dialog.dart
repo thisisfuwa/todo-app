@@ -25,6 +25,7 @@ class TodoFormDialog extends StatelessWidget {
               const Text("Tell me what u need to do ?"),
               AppSpace.verticalM,
               FormBuilderTextField(
+                key: const Key('todo-title'),
                 name: 'title',
                 validator: FormBuilderValidators.required(
                   errorText: "Please tell me what u need to do ?",
@@ -35,12 +36,14 @@ class TodoFormDialog extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton(
+                    key: const Key('dialog-close'),
                     onPressed: () {
                       Navigator.pop(context);
                     },
                     child: const Text('Close'),
                   ),
                   TextButton(
+                    key: const Key('dialog-add'),
                     onPressed: () {
                       FocusScope.of(context).unfocus();
                       if (_formKey.currentState?.saveAndValidate() ?? false) {
