@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_application/core/enum/export.dart';
-import 'package:to_do_application/core/models/todo_model.dart';
 import 'package:to_do_application/core/theme/export.dart';
 import 'package:to_do_application/feature/todo/cubit/todo_cubit.dart';
 import 'package:to_do_application/feature/todo/widget/todo_listview.dart';
@@ -38,7 +37,7 @@ class TodoScreen extends StatelessWidget {
                     ),
                     Expanded(
                       child: TabItem(
-                        label: 'Conpleted task',
+                        label: 'Completed task',
                         onTap: () => context.read<TodoCubit>().onPageChange(1),
                         onSelected: state.page == 1,
                       ),
@@ -67,6 +66,7 @@ class TodoScreen extends StatelessWidget {
 
                         /// Render Task list here
                         : TodoListview(
+                            key: const Key('todo-list'),
                             todoList: state.page == 0 ? state.inProgressList : state.completeList,
                             onItemTap: (id) => context.read<TodoCubit>().updateTodo(id),
                             onDeleteItem: (id) => context.read<TodoCubit>().removeTodo(id),
@@ -77,6 +77,7 @@ class TodoScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton.small(
+        key: const Key('add-button'),
         onPressed: () async {
           /// Add Task dialog
           showDialog(
